@@ -1,0 +1,52 @@
+// SipClient.idl : type library source for ActiveX Control project.
+
+// This file will be processed by the MIDL compiler tool to
+// produce the type library (SipClient.tlb) that will become a resource in
+// SipClient.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(3A0B614D-D070-4C67-8E7B-DD2005E00AEC), version(1.0),
+  control ]
+library SipClientLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Primary dispatch interface for CSipClientCtrl
+	[ 
+		uuid(52EE339D-E0E1-4DE0-8437-E4762B444653)	
+	]
+	dispinterface _DSipClient
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+            
+    };
+
+	//  Event dispatch interface for CSipClientCtrl
+
+	[ 
+		uuid(48685B74-931D-4E0A-848A-7DCAEE463593)	
+	]
+	dispinterface _DSipClientEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+	};
+
+	//  Class information for CSipClientCtrl
+	[
+		uuid(EB9ABED1-92E5-4026-A668-76267C5269CA)
+	]
+	coclass SipClient
+	{
+		[default] dispinterface _DSipClient;
+		[default, source] dispinterface _DSipClientEvents;
+	};
+
+};
