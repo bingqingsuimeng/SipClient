@@ -239,7 +239,7 @@ LONG CSipClientCtrl::doBye()
     long lRet = -1;
     do
     {
-        if (NULL != m_pSipUA);
+        if (NULL != m_pSipUA)
         {
             m_pSipUA->doBye();
             lRet = 0;

@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F96944BB-3609-45C0-91F2-A5C83B17D583}</ProjectGuid>
+    <RootNamespace>jrtplib</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)jrtplib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;_WINDOWS;JRTPLIB_COMPILING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\rtcpapppacket.cpp" />
+    <ClCompile Include="src\rtcpbyepacket.cpp" />
+    <ClCompile Include="src\rtcpcompoundpacket.cpp" />
+    <ClCompile Include="src\rtcpcompoundpacketbuilder.cpp" />
+    <ClCompile Include="src\rtcppacket.cpp" />
+    <ClCompile Include="src\rtcppacketbuilder.cpp" />
+    <ClCompile Include="src\rtcprrpacket.cpp" />
+    <ClCompile Include="src\rtcpscheduler.cpp" />
+    <ClCompile Include="src\rtcpsdesinfo.cpp" />
+    <ClCompile Include="src\rtcpsdespacket.cpp" />
+    <ClCompile Include="src\rtcpsrpacket.cpp" />
+    <ClCompile Include="src\rtpabortdescriptors.cpp" />
+    <ClCompile Include="src\rtpbyteaddress.cpp" />
+    <ClCompile Include="src\rtpcollisionlist.cpp" />
+    <ClCompile Include="src\rtpdebug.cpp" />
+    <ClCompile Include="src\rtperrors.cpp" />
+    <ClCompile Include="src\rtpexternaltransmitter.cpp" />
+    <ClCompile Include="src\rtpinternalsourcedata.cpp" />
+    <ClCompile Include="src\rtpipv4address.cpp" />
+    <ClCompile Include="src\rtpipv4destination.cpp" />
+    <ClCompile Include="src\rtpipv6address.cpp" />
+    <ClCompile Include="src\rtpipv6destination.cpp" />
+    <ClCompile Include="src\rtplibraryversion.cpp" />
+    <ClCompile Include="src\rtppacket.cpp" />
+    <ClCompile Include="src\rtppacketbuilder.cpp" />
+    <ClCompile Include="src\rtppollthread.cpp" />
+    <ClCompile Include="src\rtprandom.cpp" />
+    <ClCompile Include="src\rtprandomrand48.cpp" />
+    <ClCompile Include="src\rtprandomrands.cpp" />
+    <ClCompile Include="src\rtprandomurandom.cpp" />
+    <ClCompile Include="src\rtpsecuresession.cpp" />
+    <ClCompile Include="src\rtpsession.cpp" />
+    <ClCompile Include="src\rtpsessionparams.cpp" />
+    <ClCompile Include="src\rtpsessionsources.cpp" />
+    <ClCompile Include="src\rtpsourcedata.cpp" />
+    <ClCompile Include="src\rtpsources.cpp" />
+    <ClCompile Include="src\rtptcpaddress.cpp" />
+    <ClCompile Include="src\rtptcptransmitter.cpp" />
+    <ClCompile Include="src\rtptimeutilities.cpp" />
+    <ClCompile Include="src\rtpudpv4transmitter.cpp" />
+    <ClCompile Include="src\rtpudpv6transmitter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\rtcpapppacket.h" />
+    <ClInclude Include="include\rtcpbyepacket.h" />
+    <ClInclude Include="include\rtcpcompoundpacket.h" />
+    <ClInclude Include="include\rtcpcompoundpacketbuilder.h" />
+    <ClInclude Include="include\rtcppacket.h" />
+    <ClInclude Include="include\rtcppacketbuilder.h" />
+    <ClInclude Include="include\rtcprrpacket.h" />
+    <ClInclude Include="include\rtcpscheduler.h" />
+    <ClInclude Include="include\rtcpsdesinfo.h" />
+    <ClInclude Include="include\rtcpsdespacket.h" />
+    <ClInclude Include="include\rtcpsrpacket.h" />
+    <ClInclude Include="include\rtcpunknownpacket.h" />
+    <ClInclude Include="include\rtpabortdescriptors.h" />
+    <ClInclude Include="include\rtpaddress.h" />
+    <ClInclude Include="include\rtpbyteaddress.h" />
+    <ClInclude Include="include\rtpcollisionlist.h" />
+    <ClInclude Include="include\rtpconfig.h" />
+    <ClInclude Include="include\rtpdebug.h" />
+    <ClInclude Include="include\rtpdefines.h" />
+    <ClInclude Include="include\rtperrors.h" />
+    <ClInclude Include="include\rtpexternaltransmitter.h" />
+    <ClInclude Include="include\rtphashtable.h" />
+    <ClInclude Include="include\rtpinternalsourcedata.h" />
+    <ClInclude Include="include\rtpinternalutils.h" />
+    <ClInclude Include="include\rtpipv4address.h" />
+    <ClInclude Include="include\rtpipv4destination.h" />
+    <ClInclude Include="include\rtpipv6address.h" />
+    <ClInclude Include="include\rtpipv6destination.h" />
+    <ClInclude Include="include\rtpkeyhashtable.h" />
+    <ClInclude Include="include\rtplibraryversion.h" />
+    <ClInclude Include="include\rtplibraryversioninternal.h" />
+    <ClInclude Include="include\rtpmemorymanager.h" />
+    <ClInclude Include="include\rtpmemoryobject.h" />
+    <ClInclude Include="include\rtppacket.h" />
+    <ClInclude Include="include\rtppacketbuilder.h" />
+    <ClInclude Include="include\rtppollthread.h" />
+    <ClInclude Include="include\rtprandom.h" />
+    <ClInclude Include="include\rtprandomrand48.h" />
+    <ClInclude Include="include\rtprandomrands.h" />
+    <ClInclude Include="include\rtprandomurandom.h" />
+    <ClInclude Include="include\rtprawpacket.h" />
+    <ClInclude Include="include\rtpsecuresession.h" />
+    <ClInclude Include="include\rtpselect.h" />
+    <ClInclude Include="include\rtpsession.h" />
+    <ClInclude Include="include\rtpsessionparams.h" />
+    <ClInclude Include="include\rtpsessionsources.h" />
+    <ClInclude Include="include\rtpsocketutil.h" />
+    <ClInclude Include="include\rtpsocketutilinternal.h" />
+    <ClInclude Include="include\rtpsourcedata.h" />
+    <ClInclude Include="include\rtpsources.h" />
+    <ClInclude Include="include\rtpstructs.h" />
+    <ClInclude Include="include\rtptcpaddress.h" />
+    <ClInclude Include="include\rtptcptransmitter.h" />
+    <ClInclude Include="include\rtptimeutilities.h" />
+    <ClInclude Include="include\rtptransmitter.h" />
+    <ClInclude Include="include\rtptypes.h" />
+    <ClInclude Include="include\rtptypes_win.h" />
+    <ClInclude Include="include\rtpudpv4transmitter.h" />
+    <ClInclude Include="include\rtpudpv6transmitter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\jthread\jthread.vcxproj">
+      <Project>{ad9ff4be-9a10-4f08-82f9-4b96093e2b02}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

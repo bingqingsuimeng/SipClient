@@ -19,6 +19,12 @@
     <Filter Include="Header Files\SipUA">
       <UniqueIdentifier>{4cd20496-1e7f-4ee7-b278-450264dcd382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MediaSession">
+      <UniqueIdentifier>{c50c2b00-7da1-4134-994e-cb480945440e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MediaSession">
+      <UniqueIdentifier>{66e23ed7-6b8e-4482-ac46-d8e4934758da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="SipUA\SipUA.cpp">
       <Filter>Source Files\SipUA</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaSession\MediaSession.cpp">
+      <Filter>Source Files\MediaSession</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +77,15 @@
     <ClInclude Include="SipUA\SipUA.h">
       <Filter>Header Files\SipUA</Filter>
     </ClInclude>
+    <ClInclude Include="MediaSession\MediaSession.h">
+      <Filter>Header Files\MediaSession</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SipClient.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SipClient.rc">

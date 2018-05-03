@@ -1,6 +1,17 @@
 #ifndef __SIPUA_H__
 #define __SIPUA_H__
 
+/**
+*   描述：
+*       实现rfc3261中规定的sipUA   
+*
+*   description:
+*       implement sipUA, which is descripted in rfc3261.
+*   author: YangDong
+*   date:   2018-05-02
+*   email:  heibao111728@126.com
+*/
+
 #include <Windows.h>
 #include <process.h>
 #include <assert.h>
@@ -34,10 +45,10 @@ public:
 
 
     //Main Worker Thread function, handles sip message
-    static void ThreadProc(void* pParam);
+    static void ThreadProc(void* pParam);   //线程函数
     int StartProc();
-    HANDLE m_threadHandle;
-    bool m_bThreadRuning;
+    HANDLE m_threadHandle;  //线程句柄
+    bool m_bThreadRuning;   //线程运行状态
 
     //eXosip2 events' handle
     inline int ProceXsipEvt(eXosip_event_t* pSipEvt);
@@ -62,6 +73,13 @@ public:
     int doInvite(char* dstDeviceid, char* sdp);
     int doAck();
     int doCancel();
+
+    /**
+    *   功能：
+    *       结束呼叫
+    *   function:
+    *       terminate a call
+    */
     int doBye();
     int doInfo();
     int doOptions();

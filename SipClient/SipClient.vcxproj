@@ -96,15 +96,17 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\SipClient.def</ModuleDefinitionFile>
       <OutputFile>$(OutDir)$(ProjectName).ocx</OutputFile>
       <RegisterOutput>true</RegisterOutput>
-      <AdditionalDependencies>SipStackd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jrtplibd.lib;jthreadd.lib;SipStackd.lib;mfcs140d.lib;MSVCRTD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>mfcs140d.lib;MSVCRTD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/VERBOSE:LIB %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -216,6 +218,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MediaSession\MediaSession.cpp" />
     <ClCompile Include="SipClient.cpp" />
     <ClCompile Include="SipClientCtrl.cpp" />
     <ClCompile Include="SipClientPropPage.cpp" />
@@ -229,6 +232,7 @@
     <ClCompile Include="VideoDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MediaSession\MediaSession.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SipClient.h" />
     <ClInclude Include="SipClientCtrl.h" />
@@ -239,6 +243,7 @@
     <ClInclude Include="VideoDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="SipClient.def" />
   </ItemGroup>
   <ItemGroup>
