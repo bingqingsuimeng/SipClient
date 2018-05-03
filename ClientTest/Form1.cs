@@ -21,14 +21,30 @@ namespace ClientTest
         {
             string clientId = "11010000004000000001";
             string clientIp = "10.11.1.208";
-            short clientPort = 6000;
+            ushort clientPort = 6000;
             string svrId = "11010000002000000001";
             string svrIp = "10.11.1.131";
             string authPwd = "12345678a";
-            short svrPort = 5060;
+            ushort svrPort = 5060;
 
-            //this.axSipClient1.MediaInit(clientId, clientIp, clientPort,
-            //    svrId, svrIp, svrPort, authPwd);
+            this.axSipClient1.MediaInit(clientId, clientIp, clientPort,
+                svrId, svrIp, svrPort, authPwd);
+            
+        }
+
+        private void CLIENTREGISTER_Click(object sender, EventArgs e)
+        {
+            this.axSipClient1.doRegister(3600);
+        }
+
+        private void MEDIAPLAY_Click(object sender, EventArgs e)
+        {
+            this.axSipClient1.doInvite("11010000001310000002");
+        }
+
+        private void MEDIASTOP_Click(object sender, EventArgs e)
+        {
+            this.axSipClient1.doBye();
         }
     }
 }

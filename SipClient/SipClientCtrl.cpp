@@ -22,6 +22,10 @@ END_MESSAGE_MAP()
 
 BEGIN_DISPATCH_MAP(CSipClientCtrl, COleControl)
 	DISP_FUNCTION_ID(CSipClientCtrl, "AboutBox", DISPID_ABOUTBOX, AboutBox, VT_EMPTY, VTS_NONE)
+    DISP_FUNCTION_ID(CSipClientCtrl, "MediaInit", dispidMediaInit, MediaInit, VT_I4, VTS_BSTR VTS_BSTR VTS_UI2 VTS_BSTR VTS_BSTR VTS_UI2 VTS_BSTR)
+    DISP_FUNCTION_ID(CSipClientCtrl, "doRegister", dispiddoRegister, doRegister, VT_I4, VTS_I2)
+    DISP_FUNCTION_ID(CSipClientCtrl, "doInvite", dispiddoInvite, doInvite, VT_I4, VTS_BSTR)
+    DISP_FUNCTION_ID(CSipClientCtrl, "doBye", dispiddoBye, doBye, VT_I4, VTS_NONE)
 END_DISPATCH_MAP()
 
 // Event map
@@ -95,6 +99,8 @@ CSipClientCtrl::CSipClientCtrl()
 {
 	InitializeIIDs(&IID_DSipClient, &IID_DSipClientEvents);
 	// TODO: Initialize your control's instance data here.
+    m_pVideoDlg = NULL; 
+    m_pSipUA = NULL;
 }
 
 // CSipClientCtrl::~CSipClientCtrl - Destructor
@@ -160,3 +166,85 @@ void CSipClientCtrl::AboutBox()
 
 // CSipClientCtrl message handlers
 
+
+
+LONG CSipClientCtrl::MediaInit(LPCTSTR clientId, LPCTSTR clientIp, USHORT clientPort, 
+    LPCTSTR svrId, LPCTSTR svrIp, USHORT svrPort, LPCTSTR authPwd)
+{
+    AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+    // TODO: Add your dispatch handler code here
+    if (NULL == m_pVideoDlg)
+    {
+        //
+    }
+
+    if (NULL == m_pSipUA)
+    {
+        m_pSipUA = new CSipUA();
+    }
+    //char* SipUaId, char* SipUaIp, int SipUaPort,
+        //char* SipSvrId, char* SipSvrIp, char* authPwd, int sipSvrPort
+    m_pSipUA->Init((char*)clientId, (char*)clientIp, (int)clientPort, 
+        (char*)svrId, (char*)svrIp, (char*)authPwd, 5060);
+
+    return 0;
+}
+
+
+LONG CSipClientCtrl::doRegister(SHORT expire)
+{
+    AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+    // TODO: Add your dispatch handler code here
+
+    m_pSipUA->doRegister((int)expire);
+
+    return 0;
+}
+
+
+LONG CSipClientCtrl::doInvite(LPCTSTR deviceId)
+{
+    AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+    // TODO: Add your dispatch handler code here
+    char sdp[500] = { 0 };     
+    char * tmpsdp = "v=0\r\n"
+                    "o=11010000004000000001 0 0 IN IP4 10.11.1.208\r\n"
+                    "s=Play\r\n"
+                    "c=IN IP4 10.11.1.208\r\n"
+                    "t=0 0\r\n"
+                    "m=video 6002 RTP/AVP 96 98 97\r\n"
+                    "a=recvonly\r\n"
+                    "a=rtpmap:96 PS/90000\r\n"
+                    "a=rtpmap:98 H264/90000\r\n"
+                    "a=rtpmap:97 MPEG-4/90000\r\n"
+                    "y=0999999999\r\n"
+                    "f=\r\n ";
+
+    sprintf_s(sdp, "%s", tmpsdp);
+
+    m_pSipUA->doInvite((char*)deviceId, sdp);
+
+    return 0;
+}
+
+
+LONG CSipClientCtrl::doBye()
+{
+    AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+    // TODO: Add your dispatch handler code here
+    long lRet = -1;
+    do
+    {
+        if (NULL != m_pSipUA);
+        {
+            m_pSipUA->doBye();
+            lRet = 0;
+        }
+    } while (0);
+
+    return lRet;
+}

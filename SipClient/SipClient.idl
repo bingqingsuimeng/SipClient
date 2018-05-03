@@ -24,6 +24,10 @@ library SipClientLib
 
 			[id(DISPID_ABOUTBOX)] void AboutBox();
             
+            [id(1)] LONG MediaInit(BSTR clientId, BSTR clientIp, USHORT clientPort, BSTR svrId, BSTR svrIp, USHORT svrPort, BSTR authPwd);
+            [id(2)] LONG doRegister(SHORT expire);
+            [id(3)] LONG doInvite(BSTR deviceId);
+            [id(4)] LONG doBye();
     };
 
 	//  Event dispatch interface for CSipClientCtrl

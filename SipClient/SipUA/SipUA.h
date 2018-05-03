@@ -28,7 +28,8 @@ public:
     *       initiation osip stack and init sipsvr and sipua info 
     *       return:0, success; -1, failure
     */
-    int Init(char* SipUaId, char* SipSvrId, char* authPwd, int sipSvrPort);
+    int Init(char* SipUaId, char* SipUaIp, int SipUaPort,
+        char* SipSvrId, char* SipSvrIp, char* authPwd, int sipSvrPort);
     void Clean(void);
 
 
@@ -74,9 +75,10 @@ public:
 private:
     eXosip_t* m_poSipContent;
     int m_lsnPort;                  //sip消息侦听端口
-    char m_pSipUAID[30] = { 0 };    //sipUa_id
+    char m_pSipUAID[30];    //sipUa_id
     int m_callid;                   //callid
-    //char m_pSdpInfo[500] = { 0 };   //sdp
+    int m_dialogid;         //dialogid
+    char m_pSipUAIP[20];   //sipua_ip
     int m_ExpiresTime;              //注册超时时间
 
     bool m_bInit;

@@ -8,6 +8,7 @@ CSipUA::CSipUA()
     m_lsnPort = 6000;
     m_bThreadRuning = false;
     m_callid = -1;
+    m_dialogid = -1;
     m_bInit = false;
 }
 
@@ -16,7 +17,8 @@ CSipUA::~CSipUA()
 }
 
 
-int CSipUA::Init( char* SipUaId, char* SipSvrId, char* authPwd, int sipSvrPort )
+int CSipUA::Init( char* SipUaId, char* SipUaIp, int SipUaPort, 
+    char* SipSvrId, char* SipSvrIp, char* authPwd, int sipSvrPort )
 {
     assert(SipUaId);
     assert(SipSvrId);
@@ -27,15 +29,28 @@ int CSipUA::Init( char* SipUaId, char* SipSvrId, char* authPwd, int sipSvrPort )
         sprintf_s(m_pSipUAID, "%s", SipUaId);
     }
 
+    if (NULL != SipUaIp)
+    {
+        sprintf_s(m_pSipUAIP, "%s", SipUaIp);
+    }
+
+    m_lsnPort = SipUaPort;
+
     if (NULL != SipSvrId)
     {
         sprintf_s(g_sipSvrInfo.svrid, "%s", SipSvrId);
+    }
+
+    if (NULL != SipSvrIp)
+    {
+        sprintf_s(g_sipSvrInfo.svrip, "%s", SipSvrIp);
     }
 
     if (NULL != authPwd)
     {
         sprintf_s(g_sipSvrInfo.authPwd, "%s", authPwd);
     }
+    g_sipSvrInfo.svrPort = sipSvrPort;
 
     eXosip_t* SipContent = eXosip_malloc();
 
@@ -187,16 +202,20 @@ void CSipUA::ThreadProc(void* pParam)
         }
         case EXOSIP_MESSAGE_ANSWERED://收到200ok状态消息
         {
+            int a = 5;
             break;
         }
 
         case EXOSIP_CALL_INVITE://INVITE
         {
+            int a = 5;
             break;
         }
         case EXOSIP_CALL_ANSWERED: //announce start of call
         {
-            
+            pThis->m_callid = pWaiteEvent->cid;
+            pThis->m_dialogid = pWaiteEvent->did;
+
             break;
         }
         case EXOSIP_CALL_ACK://ACK
@@ -224,6 +243,10 @@ void CSipUA::ThreadProc(void* pParam)
             //文件结束时发送MESSAGE(File to end)的应答
             break;
         }
+        case EXOSIP_NOTIFICATION_ANSWERED:
+        {
+            break;
+        }
         default:
         {
             break;
@@ -232,7 +255,9 @@ void CSipUA::ThreadProc(void* pParam)
 
         eXosip_event_free(pWaiteEvent);
         pWaiteEvent = NULL;
+        //Sleep(1 * 1000);
     }
+
     //return 0;
 }
 
@@ -244,6 +269,7 @@ int CSipUA::StartProc()
         //线程启动失败
         return -1;
     }
+    m_bThreadRuning = true;
     return 0;
 }
 
@@ -259,13 +285,16 @@ int CSipUA::doRegister(int nExpire)
 
     do
     {
-        char from[100] = { 0 };     //sip:主叫用户名@被叫IP地址
-        char proxy[100] = { 0 };    //sip:被叫IP地址:被叫IP端口
+        char from[100] = { 0 };     //from : sip:主叫用户名@被叫IP地址, 
+        char proxy[100] = { 0 };    //to : sip:被叫IP地址:被叫IP端口,  
+        char svrPort[10] = { 0 };   //sip服务器端口
+
+        _itoa_s(g_sipSvrInfo.svrPort, svrPort, 10, 10);
 
         memset(from, 0, 100);
         memset(proxy, 0, 100);
         sprintf_s(from, _countof(from), "sip:%s@%s", m_pSipUAID, g_sipSvrInfo.svrip);
-        sprintf_s(proxy, _countof(proxy), "sip:%s@%s:%s", m_pSipUAID, g_sipSvrInfo.svrip, g_sipSvrInfo.svrPort);
+        sprintf_s(proxy, _countof(proxy), "sip:%s@%s:%s", m_pSipUAID, g_sipSvrInfo.svrip, svrPort);
 
         osip_message_t* reg = NULL;
 
@@ -304,10 +333,13 @@ int CSipUA::doInvite(char* dstDeviceid, char* sdp)
     char pTo[100] = { 0 };
     char pRoute[100] = { 0 };
     char pSubject[100] = { 0 };
+    char svrPort[10] = { 0 };
+
+    _itoa_s(g_sipSvrInfo.svrPort, svrPort, 10, 10);
 
     sprintf_s(pFrom, 100, "sip:%s@%s", m_pSipUAID, g_sipSvrInfo.svrid);
     sprintf_s(pTo, 100, "sip:%s@%s", dstDeviceid, g_sipSvrInfo.svrid);
-    sprintf_s(pRoute, 100, "sip:%s@%s:%s;lr", g_sipSvrInfo.svrid, g_sipSvrInfo.svrip, g_sipSvrInfo.svrPort);
+    sprintf_s(pRoute, 100, "sip:%s@%s:%s;lr", g_sipSvrInfo.svrid, g_sipSvrInfo.svrip, svrPort);
     sprintf_s(pSubject, 100, "%s: 1, %s:", dstDeviceid, m_pSipUAID);
 
     do
@@ -330,8 +362,6 @@ int CSipUA::doInvite(char* dstDeviceid, char* sdp)
         eXosip_lock(m_poSipContent);
         nRet = eXosip_call_send_initial_invite(m_poSipContent, invite);     //SIP INVITE message to send
         eXosip_unlock(m_poSipContent);
-
-        m_callid = nRet;
 
     } while (0);
 
@@ -360,7 +390,23 @@ int CSipUA::doCancel()
 
 int CSipUA::doBye()
 {
-    return 0;
+    int nRet = -1;
+    do
+    {
+        eXosip_lock(m_poSipContent);
+        int nTerminateRet = eXosip_call_terminate(m_poSipContent, m_callid, m_dialogid);
+        eXosip_unlock(m_poSipContent);
+
+        if (nTerminateRet != OSIP_SUCCESS)
+        {
+            break;
+        }
+
+        nRet = 0;
+
+    } while (0);
+
+    return nRet;
 }
 
 int CSipUA::doInfo()

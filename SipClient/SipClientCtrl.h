@@ -49,9 +49,16 @@ protected:
 // Dispatch and event IDs
 public:
 	enum {
-        dispidMediaInit = 1L
+        dispiddoBye = 4L,
+        dispiddoInvite = 3L,
+        dispiddoRegister = 2L,
+        dispidMediaInit = 1L,
     };
 protected:
     
+    LONG MediaInit(LPCTSTR clientId, LPCTSTR clientIp, USHORT clientPort, LPCTSTR svrId, LPCTSTR svrIp, USHORT svrPort, LPCTSTR authPwd);
+    LONG doRegister(SHORT expire);
+    LONG doInvite(LPCTSTR deviceId);
+    LONG doBye();
 };
 

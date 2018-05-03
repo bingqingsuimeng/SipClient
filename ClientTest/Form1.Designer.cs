@@ -33,16 +33,17 @@
             this.CLIENTINIT = new System.Windows.Forms.Button();
             this.CLIENTREGISTER = new System.Windows.Forms.Button();
             this.MEDIAPLAY = new System.Windows.Forms.Button();
+            this.MEDIASTOP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axSipClient1)).BeginInit();
             this.SuspendLayout();
             // 
             // axSipClient1
             // 
             this.axSipClient1.Enabled = true;
-            this.axSipClient1.Location = new System.Drawing.Point(1, 1);
+            this.axSipClient1.Location = new System.Drawing.Point(0, 0);
             this.axSipClient1.Name = "axSipClient1";
             this.axSipClient1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axSipClient1.OcxState")));
-            this.axSipClient1.Size = new System.Drawing.Size(683, 499);
+            this.axSipClient1.Size = new System.Drawing.Size(663, 499);
             this.axSipClient1.TabIndex = 0;
             // 
             // CLIENTINIT
@@ -63,6 +64,7 @@
             this.CLIENTREGISTER.TabIndex = 2;
             this.CLIENTREGISTER.Text = "注册";
             this.CLIENTREGISTER.UseVisualStyleBackColor = true;
+            this.CLIENTREGISTER.Click += new System.EventHandler(this.CLIENTREGISTER_Click);
             // 
             // MEDIAPLAY
             // 
@@ -72,12 +74,24 @@
             this.MEDIAPLAY.TabIndex = 3;
             this.MEDIAPLAY.Text = "播放";
             this.MEDIAPLAY.UseVisualStyleBackColor = true;
+            this.MEDIAPLAY.Click += new System.EventHandler(this.MEDIAPLAY_Click);
+            // 
+            // MEDIASTOP
+            // 
+            this.MEDIASTOP.Location = new System.Drawing.Point(798, 329);
+            this.MEDIASTOP.Name = "MEDIASTOP";
+            this.MEDIASTOP.Size = new System.Drawing.Size(75, 23);
+            this.MEDIASTOP.TabIndex = 4;
+            this.MEDIASTOP.Text = "停止";
+            this.MEDIASTOP.UseVisualStyleBackColor = true;
+            this.MEDIASTOP.Click += new System.EventHandler(this.MEDIASTOP_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 497);
+            this.Controls.Add(this.MEDIASTOP);
             this.Controls.Add(this.MEDIAPLAY);
             this.Controls.Add(this.CLIENTREGISTER);
             this.Controls.Add(this.CLIENTINIT);
@@ -95,6 +109,7 @@
         private System.Windows.Forms.Button CLIENTINIT;
         private System.Windows.Forms.Button CLIENTREGISTER;
         private System.Windows.Forms.Button MEDIAPLAY;
+        private System.Windows.Forms.Button MEDIASTOP;
     }
 }
 
