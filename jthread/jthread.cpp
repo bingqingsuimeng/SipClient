@@ -67,7 +67,8 @@ int JThread::Start()
 		{
 			if (continuemutex2.Init() < 0)
 				return ERR_JTHREAD_CANTINITMUTEX;
-		}		mutexinit = true;
+		}		
+        mutexinit = true;
 	}
 	
 	continuemutex.Lock();

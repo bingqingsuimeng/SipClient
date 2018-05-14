@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Thu May 03 18:32:31 2018
+/* at Wed May 09 17:03:24 2018
  */
 /* Compiler settings for SipClient.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

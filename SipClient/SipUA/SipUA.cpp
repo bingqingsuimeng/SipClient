@@ -273,6 +273,11 @@ int CSipUA::StartProc()
     return 0;
 }
 
+void CSipUA::StopProc()
+{
+    m_bThreadRuning = false;
+}
+
 //eXosip2 events' handle
 int CSipUA::ProceXsipEvt(eXosip_event_t* pSipEvt)
 {

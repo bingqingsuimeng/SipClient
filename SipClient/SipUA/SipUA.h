@@ -47,6 +47,7 @@ public:
     //Main Worker Thread function, handles sip message
     static void ThreadProc(void* pParam);   //线程函数
     int StartProc();
+    void StopProc();
     HANDLE m_threadHandle;  //线程句柄
     bool m_bThreadRuning;   //线程运行状态
 

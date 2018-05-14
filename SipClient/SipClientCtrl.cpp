@@ -119,7 +119,7 @@ void CSipClientCtrl::OnDraw(
 		return;
 
 	// TODO: Replace the following code with your own drawing code.
-    m_hCtlWnd = this->GetSafeHwnd();
+    g_hCtlWnd = this->GetSafeHwnd();
 
     if (m_pVideoDlg == NULL)
     {
@@ -185,7 +185,10 @@ LONG CSipClientCtrl::MediaInit(LPCTSTR clientId, LPCTSTR clientIp, USHORT client
     }
     //char* SipUaId, char* SipUaIp, int SipUaPort,
         //char* SipSvrId, char* SipSvrIp, char* authPwd, int sipSvrPort
-    m_pSipUA->Init((char*)clientId, (char*)clientIp, (int)clientPort, 
+    sprintf_s(g_ClientIp, "%s", (char*)clientIp);
+    sprintf_s(g_ClientId, "%s", (char*)clientId);
+
+    m_pSipUA->Init(g_ClientId, g_ClientIp, (int)clientPort,
         (char*)svrId, (char*)svrIp, (char*)authPwd, 5060);
 
     return 0;
@@ -209,25 +212,16 @@ LONG CSipClientCtrl::doInvite(LPCTSTR deviceId)
     AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
     // TODO: Add your dispatch handler code here
-    char sdp[500] = { 0 };     
-    char * tmpsdp = "v=0\r\n"
-                    "o=11010000004000000001 0 0 IN IP4 10.11.1.208\r\n"
-                    "s=Play\r\n"
-                    "c=IN IP4 10.11.1.208\r\n"
-                    "t=0 0\r\n"
-                    "m=video 6002 RTP/AVP 96 98 97\r\n"
-                    "a=recvonly\r\n"
-                    "a=rtpmap:96 PS/90000\r\n"
-                    "a=rtpmap:98 H264/90000\r\n"
-                    "a=rtpmap:97 MPEG-4/90000\r\n"
-                    "y=0999999999\r\n"
-                    "f=\r\n ";
-
-    sprintf_s(sdp, "%s", tmpsdp);
-
-    m_pSipUA->doInvite((char*)deviceId, sdp);
-
-    return 0;
+    if (NULL != m_pVideoDlg && NULL != m_pSipUA)
+    {
+        m_pVideoDlg->StartPlay();
+        m_pSipUA->doInvite((char*)deviceId, m_pVideoDlg->getSdpInfo());
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
 }
 
 

@@ -7,7 +7,9 @@
 #include "VideoDlg.h"
 #include "SipUA\SipUA.h"
 
-HWND m_hCtlWnd;
+HWND g_hCtlWnd;
+char g_ClientIp[20] = { 0 }; //sip UA IP
+char g_ClientId[25] = { 0 }; //sip UA Id
 
 class CSipClientCtrl : public COleControl
 {

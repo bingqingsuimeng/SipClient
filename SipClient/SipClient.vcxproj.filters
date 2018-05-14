@@ -25,6 +25,18 @@
     <Filter Include="Header Files\MediaSession">
       <UniqueIdentifier>{66e23ed7-6b8e-4482-ac46-d8e4934758da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MediaSource">
+      <UniqueIdentifier>{f8c22e87-991a-4642-9b1e-6db44ab9cb33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MediaSource">
+      <UniqueIdentifier>{82889d92-2714-4244-b6d2-2391454f4cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RtpReceiver">
+      <UniqueIdentifier>{3c8ecccb-cddf-402b-bab9-9f40d0eb574d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RtpReceiver">
+      <UniqueIdentifier>{3d37d239-7b97-4428-a9ec-e58d463c288b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -50,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="MediaSession\MediaSession.cpp">
       <Filter>Source Files\MediaSession</Filter>
+    </ClCompile>
+    <ClCompile Include="RtpReceiver\RtpReceiver.cpp">
+      <Filter>Source Files\RtpReceiver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="MediaSession\MediaSession.h">
       <Filter>Header Files\MediaSession</Filter>
+    </ClInclude>
+    <ClInclude Include="RtpReceiver\RtpReceiver.h">
+      <Filter>Header Files\RtpReceiver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

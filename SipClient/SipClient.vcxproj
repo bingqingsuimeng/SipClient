@@ -219,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MediaSession\MediaSession.cpp" />
+    <ClCompile Include="RtpReceiver\RtpReceiver.cpp" />
     <ClCompile Include="SipClient.cpp" />
     <ClCompile Include="SipClientCtrl.cpp" />
     <ClCompile Include="SipClientPropPage.cpp" />
@@ -234,6 +235,7 @@
   <ItemGroup>
     <ClInclude Include="MediaSession\MediaSession.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RtpReceiver\RtpReceiver.h" />
     <ClInclude Include="SipClient.h" />
     <ClInclude Include="SipClientCtrl.h" />
     <ClInclude Include="SipClientPropPage.h" />

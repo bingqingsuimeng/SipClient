@@ -1,13 +1,24 @@
 #ifndef __MEDIASESSION_H__
 #define __MEDIASESSION_H__
 
-class MediaSession
+#include "SipClient\RtpReceiver\RtpReceiver.h"
+
+class CMediaSession
 {
 public:
-    MediaSession();
-    ~MediaSession();
+    CMediaSession();
+    ~CMediaSession();
+
+    char* getFrame();
+    char* getSdpInfo();
+
+    unsigned short getMediaPort();
+
+    int StartProc();
+    void StopProc();
+
 private:
-    int a;
+    CRtpReceiver m_rtpReceiver;
 };
 
 #endif // !__MEDIASESSION_H__
