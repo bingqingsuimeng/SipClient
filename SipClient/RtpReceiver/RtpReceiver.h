@@ -14,16 +14,18 @@ using namespace jrtplib;
 
 typedef struct
 {
+    //因为字节序不同，所以定义字段的顺序不是按照rfc3550中定义的顺序，这样定义方便存取；
+    //because of bit sequence, we define this struct not as order define in rfc3550.
     //LITTLE_ENDIAN
-    unsigned short   v : 2;     // packet type
-    unsigned short   p : 1;     // padding flag
-    unsigned short   x : 1;     // header extension flag
     unsigned short   cc : 4;    // CSRC count
-    unsigned short   m : 1;     // marker bit 
+    unsigned short   x  : 1;     // header extension flag
+    unsigned short   p  : 1;     // padding flag
+    unsigned short   v  : 2;     // packet type
     unsigned short   pt : 7;    // payload type
+    unsigned short   m  : 1;     // marker bit
     unsigned short   seq;       // sequence number
     unsigned long    ts;        // timestamp
-    unsigned long    ssrc;      //synchronization source
+    unsigned long    ssrc;      // synchronization source
 }rtp_hdr_t;
 
 class CRtpReceiver
@@ -59,9 +61,9 @@ private:
     RTPSession m_RtpSession;
     char m_SdpInfo[4 * 1024] = { 0 };
     uint16_t m_mediaPort;
-    uint8_t m_pFrame[100 * 1024];   //保存获取到的完整视频帧，如果对于特高质量视频帧，可以将该空间扩大
+    uint8_t m_pFrame[100 * 1024 * 1024];   //100M，保存获取到的完整视频帧，如果对于特高质量视频帧，可以将该空间扩大
     int m_offset;                   //位移
-    bool m_isMarkerPacket;              //完整帧rtp包头标记
+    bool m_isMarkerPacket;          //完整帧rtp包头标记
 
     FILE* m_pLogFile;
 };

@@ -148,7 +148,7 @@ void CRtpReceiver::writeLog(const char* pLog, int nLen)
     {
         if (NULL == m_pLogFile)
         {
-            ::fopen_s(&m_pLogFile, "E://mediaplay.mp4", "a+");
+            ::fopen_s(&m_pLogFile, "E://mediaplay.ps", "a+");
         }
 
         if (m_pLogFile != NULL)
