@@ -233,8 +233,12 @@
     <ClCompile Include="VideoDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DataRepository\include\DataRepository.h" />
+    <ClInclude Include="..\DataRepository\include\MyFifo.h" />
+    <ClInclude Include="..\DataRepository\include\MyNode.h" />
     <ClInclude Include="MediaSession\MediaSession.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RtpReceiver\PsPacketParser.h" />
     <ClInclude Include="RtpReceiver\RtpReceiver.h" />
     <ClInclude Include="SipClient.h" />
     <ClInclude Include="SipClientCtrl.h" />

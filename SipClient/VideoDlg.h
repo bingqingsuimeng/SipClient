@@ -3,6 +3,7 @@
 #include "MediaSession\MediaSession.h"
 
 
+
 // CVideoDlg dialog
 
 class CVideoDlg : public CDialogEx

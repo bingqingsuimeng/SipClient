@@ -37,6 +37,9 @@
     <Filter Include="Source Files\RtpReceiver">
       <UniqueIdentifier>{3d37d239-7b97-4428-a9ec-e58d463c288b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DataRepository">
+      <UniqueIdentifier>{a76e4e99-1ffa-4417-90bd-d3ab3da7a133}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -96,6 +99,18 @@
       <Filter>Header Files\MediaSession</Filter>
     </ClInclude>
     <ClInclude Include="RtpReceiver\RtpReceiver.h">
+      <Filter>Header Files\RtpReceiver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataRepository\include\DataRepository.h">
+      <Filter>Header Files\DataRepository</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataRepository\include\MyFifo.h">
+      <Filter>Header Files\DataRepository</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataRepository\include\MyNode.h">
+      <Filter>Header Files\DataRepository</Filter>
+    </ClInclude>
+    <ClInclude Include="RtpReceiver\PsPacketParser.h">
       <Filter>Header Files\RtpReceiver</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,14 @@
 #include "RtpReceiver.h"
+#include "DataRepository\include\DataRepository.h"
 
 extern char g_ClientIp[20]; //sip UA IP
 extern char g_ClientId[20]; //sip UA Id
+
+//存放PS包的数据仓库，每一数据项存储一帧完整的PS包
+extern CDataRepository<unsigned char*> g_PsPacketRepo;
+
+//存放ES包的数据仓库，每一数据项存储一帧完整的ES包
+extern CDataRepository<unsigned char*> g_EsPacketRepo;
 
 CRtpReceiver::CRtpReceiver(unsigned short rtpPort)
     :m_mediaPort(rtpPort)
@@ -106,7 +113,8 @@ void CRtpReceiver::ThreadProc(void* pParam)
 
                 while ((pack = (pThis->m_RtpSession).GetNextPacket()) != NULL)
                 {
-                    pThis->assemleFrame(pack);
+                    //pThis->assemleFrame(pack);
+                    pThis->handlePacket(pack);
                     // we don't longer need the packet, so
                     // we'll delete it
                     (pThis->m_RtpSession).DeletePacket(pack);
@@ -118,7 +126,47 @@ void CRtpReceiver::ThreadProc(void* pParam)
     }
 }
 
-int CRtpReceiver::assemleFrame(RTPPacket* packet)
+int CRtpReceiver::handlePacket(RTPPacket* packet)
+{
+    int packetSize = 0;
+    uint8_t packetPayloadType;
+
+    if (NULL == packet)
+    {
+        return 0;
+    }
+
+    packetSize = packet->GetPacketLength();
+    packetPayloadType = packet->GetPayloadType();
+
+    //按负载类型处理负载数据
+    switch (packetPayloadType)
+    {
+    case PS: //96
+    {
+        handlePsPacket( packet );
+        break;
+    }
+    case MPEG4: //97
+    {
+        break;
+    }
+    case H264: //98
+    {
+        break;
+    }
+    case SVAC: //99
+    {
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+}
+
+int CRtpReceiver::handlePsPacket(RTPPacket* packet)
 {
     if (NULL == packet)
     {
@@ -127,19 +175,35 @@ int CRtpReceiver::assemleFrame(RTPPacket* packet)
 
     if (packet->HasMarker())   //完数据包, asMarker() Returns true is the marker bit was set
     {
-        //memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
-        //m_offset = 0;
-        writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
-
         //接收到完整的一帧，存入视频帧队列，供解码器解析，并将空间释放，供下一帧数据存放。
+        memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
+        m_frameSize = m_offset + packet->GetPayloadLength();
+        m_pTmpFrame = new uint8_t(m_frameSize);
+
+        g_PsPacketRepo.putData(m_pTmpFrame);    //入PS包仓库
+
+        m_frameSize = 0;
+        m_offset = 0;
+
+        //writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
     }
     else
     {
-        //memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
-        //m_offset += packet->GetPayloadLength();
-        writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
+        memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
+        m_offset += packet->GetPayloadLength();
+        //writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
     }
     return packet->GetPayloadLength();
+}
+
+int CRtpReceiver::handleMPEG4Packet(RTPPacket* packet)
+{
+    return 0;
+}
+
+int CRtpReceiver::handleH264Packet(RTPPacket* packet)
+{
+    return 0;
 }
 
 void CRtpReceiver::writeLog(const char* pLog, int nLen)

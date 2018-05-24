@@ -6,10 +6,17 @@
 // CSipClientCtrl : See SipClientCtrl.cpp for implementation.
 #include "VideoDlg.h"
 #include "SipUA\SipUA.h"
+#include "DataRepository\include\DataRepository.h"
 
+/**
+*   global variable
+*   全局变量
+*/
 HWND g_hCtlWnd;
 char g_ClientIp[20] = { 0 }; //sip UA IP
 char g_ClientId[25] = { 0 }; //sip UA Id
+CDataRepository<unsigned char*> g_PsPacketRepo;//存放PS包的数据仓库，每一数据项存储一帧完整的PS包
+CDataRepository<unsigned char*> g_EsPacketRepo;//存放ES包的数据仓库，每一数据项存储一帧完整的ES包
 
 class CSipClientCtrl : public COleControl
 {
