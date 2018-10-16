@@ -189,7 +189,7 @@ LONG CSipClientCtrl::MediaInit(LPCTSTR clientId, LPCTSTR clientIp, USHORT client
     sprintf_s(g_ClientId, "%s", (char*)clientId);
 
     m_pSipUA->Init(g_ClientId, g_ClientIp, (int)clientPort,
-        (char*)svrId, (char*)svrIp, (char*)authPwd, 5060);
+        (char*)svrId, (char*)svrIp, (char*)authPwd, (int)svrPort);
 
     return 0;
 }

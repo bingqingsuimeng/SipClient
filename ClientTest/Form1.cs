@@ -19,11 +19,11 @@ namespace ClientTest
 
         private void CLIENTINIT_Click(object sender, EventArgs e)
         {
-            string clientId = "11010000004000000001";
-            string clientIp = "10.11.1.208";
+            string clientId = "34020000004000000001";
+            string clientIp = "192.168.2.102";
             ushort clientPort = 6000;
-            string svrId = "11010000002000000001";
-            string svrIp = "10.11.1.131";
+            string svrId = "34020000002000000001";
+            string svrIp = "192.168.2.128";
             string authPwd = "12345678a";
             ushort svrPort = 5060;
 
@@ -39,7 +39,7 @@ namespace ClientTest
 
         private void MEDIAPLAY_Click(object sender, EventArgs e)
         {
-            this.axSipClient1.doInvite("11010000001310000002");
+            this.axSipClient1.doInvite("34020000001320000201");
         }
 
         private void MEDIASTOP_Click(object sender, EventArgs e)
