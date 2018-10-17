@@ -44,7 +44,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -123,17 +123,20 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\SipClient.def</ModuleDefinitionFile>
       <OutputFile>$(OutDir)$(ProjectName).ocx</OutputFile>
       <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>SipStackd.lib;mfcs140d.lib;MSVCRTD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -261,6 +264,17 @@
   <ItemGroup>
     <Image Include="SipClient.ico" />
     <Image Include="SipClientCtrl.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\jrtplib\jrtplib.vcxproj">
+      <Project>{f96944bb-3609-45c0-91f2-a5c83b17d583}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\jthread\jthread.vcxproj">
+      <Project>{ad9ff4be-9a10-4f08-82f9-4b96093e2b02}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SipStack\SipStack.vcxproj">
+      <Project>{5bc0241a-2ed6-4ed6-9a39-e3f11a364383}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

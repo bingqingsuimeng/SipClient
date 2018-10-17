@@ -78,7 +78,7 @@ public:
     HANDLE m_threadHandle;  //线程句柄
     bool m_bThreadRuning;   //线程运行状态
 
-    void writeLog(const char* pLog, int nLen);
+    void writeLog(char* file_name, void* pLog, int nLen);
 
 private:
     RTPUDPv4TransmissionParams m_Transparams;
@@ -86,7 +86,8 @@ private:
     RTPSession m_RtpSession;
     char m_SdpInfo[SDP_SIZE] = { 0 };
     uint16_t m_mediaPort;
-    uint8_t m_pFrame[MAX_FRAME_SIZE];       //存放媒体帧缓存
+    uint8_t m_pFrame[MAX_FRAME_SIZE];       //存放PS媒体帧缓存
+    uint8_t m_pEsFrame[MAX_FRAME_SIZE];       //存放ES媒体帧缓存
     uint8_t* m_pTmpFrame;                   //组装完整的帧堆地址，用于插入仓库。
     int m_offset;                           //位移
     int m_frameSize;                        //完整帧大小

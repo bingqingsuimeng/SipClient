@@ -166,6 +166,84 @@ int CRtpReceiver::handlePacket(RTPPacket* packet)
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+union littel_endian_size
+{
+    unsigned short int  length;
+    unsigned char       byte[2];
+};
+
+typedef struct pes_pack_start_code
+{
+    unsigned char start_code[3];
+    unsigned char stream_id[1];
+} pes_pack_start_code_t;
+
+typedef struct pes_pack_header
+{
+    pes_pack_start_code start_code;
+    littel_endian_size packet_size;
+} pes_pack_header_t;
+
+struct pack_start_code
+{
+    unsigned char start_code[3];
+    unsigned char stream_id[1];
+};
+
+struct program_stream_pack_header
+{
+    unsigned char ps_packet_start_code[4];   
+    unsigned char Buf[9];                   // ps包头部数据，后续再详细划分
+    littel_endian_size pack_stuffed_data; // ps包中第14个字节的后3位用来说明填充数据的长度
+};
+
+int get_ps_header_size(unsigned char* pPacket)
+{
+    int length = 0;
+
+    if (pPacket
+        && pPacket[0] == 0x00
+        && pPacket[1] == 0x00
+        && pPacket[2] == 0x01
+        && pPacket[3] == 0xba)
+    {
+        program_stream_pack_header *PsHead = (program_stream_pack_header *)pPacket;
+        unsigned char pack_stuffed_length = PsHead->pack_stuffed_data.length & 0x07;
+
+        return sizeof(program_stream_pack_header) + pack_stuffed_length;
+    }
+    else
+    {
+        // not a PS Packet
+        return 0;
+    }
+}
+
+int get_system_header_size(unsigned char* pPacket, int offset)
+{
+    if (pPacket
+        && pPacket[0] == 0x00
+        && pPacket[1] == 0x00
+        && pPacket[2] == 0x01
+        && pPacket[3] == 0xbb)
+    {
+
+        program_stream_pack_header *PsHead = (program_stream_pack_header *)((unsigned char*)pPacket + offset);
+        unsigned char pack_stuffed_length = PsHead->pack_stuffed_data.length & 0x07;
+
+        return sizeof(program_stream_pack_header) + pack_stuffed_length;
+    }
+    else
+    {
+        // not a system header PES Packet
+        return 0;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 int CRtpReceiver::handlePsPacket(RTPPacket* packet)
 {
     if (NULL == packet)
@@ -181,17 +259,22 @@ int CRtpReceiver::handlePsPacket(RTPPacket* packet)
         m_pTmpFrame = new uint8_t(m_frameSize);
 
         g_PsPacketRepo.putData(m_pTmpFrame);    //入PS包仓库
+        //memcpy(m_pTmpFrame, m_pFrame, m_frameSize);
+
+        writeLog("E://buf_mediaplay.h264", m_pFrame, m_frameSize);
+        writeLog("E://src_mediaplay.h264", packet->GetPayloadData(), packet->GetPayloadLength());
+
+        int ps_packet_header_size = get_ps_header_size(m_pFrame);
+        int system_header_size = get_system_header_size(m_pFrame, ps_packet_header_size);
 
         m_frameSize = 0;
         m_offset = 0;
-
-        //writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
     }
     else
     {
         memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
         m_offset += packet->GetPayloadLength();
-        //writeLog((char*)(packet->GetPayloadData()), packet->GetPayloadLength());
+        writeLog("E://src_mediaplay.h264", packet->GetPayloadData(), packet->GetPayloadLength());
     }
     return packet->GetPayloadLength();
 }
@@ -206,13 +289,13 @@ int CRtpReceiver::handleH264Packet(RTPPacket* packet)
     return 0;
 }
 
-void CRtpReceiver::writeLog(const char* pLog, int nLen)
+void CRtpReceiver::writeLog(char* file_name, void* pLog, int nLen)
 {
     if (pLog != NULL && nLen > 0)
     {
-        if (NULL == m_pLogFile)
+        if (NULL == m_pLogFile && strlen(file_name) > 0)
         {
-            ::fopen_s(&m_pLogFile, "E://mediaplay.ps", "a+");
+            ::fopen_s(&m_pLogFile, file_name, "a+");
         }
 
         if (m_pLogFile != NULL)
