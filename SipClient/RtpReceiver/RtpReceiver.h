@@ -71,6 +71,8 @@ public:
     int handlePsPacket(RTPPacket* packet);
     int handleMPEG4Packet(RTPPacket* packet);
     int handleH264Packet(RTPPacket* packet);
+    int deal_ps_packet(unsigned char * packet, int length);
+    int find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length, int* offset);
 
     static void ThreadProc(void* pParam);   //Ïß³Ìº¯Êý
     int StartProc();

@@ -344,7 +344,7 @@ int CSipUA::doInvite(char* dstDeviceid, char* sdp)
 
     sprintf_s(pFrom, 100, "sip:%s@%s", m_pSipUAID, g_sipSvrInfo.svrid);
     sprintf_s(pTo, 100, "sip:%s@%s", dstDeviceid, g_sipSvrInfo.svrid);
-    sprintf_s(pRoute, 100, "sip:%s@%s:%s;lr", g_sipSvrInfo.svrid, g_sipSvrInfo.svrip, svrPort);
+    sprintf_s(pRoute, 100, "sip:%s@%s:%s;lr", dstDeviceid, g_sipSvrInfo.svrip, svrPort);
     sprintf_s(pSubject, 100, "%s: 1, %s:", dstDeviceid, m_pSipUAID);
 
     do
