@@ -390,7 +390,7 @@ int CRtpReceiver::deal_ps_packet(unsigned char * packet, int length)
 
             if (0 == find_next_h264_return_value)
             {
-                writeLog("E://new_mediaplay.h264",
+                write_media_data_to_file("E://new_mediaplay.h264",
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
                     next_h264_es_headet_offset - 5 - pes_video_h264_packet_stuffed_size);
 
@@ -450,8 +450,8 @@ int CRtpReceiver::handlePsPacket(RTPPacket* packet)
         g_PsPacketRepo.putData(m_pTmpFrame);    //ÈëPS°ü²Ö¿â
         //memcpy(m_pTmpFrame, m_pFrame, m_frameSize);
 
-        writeLog("E://buf_mediaplay.ps", m_pFrame, m_frameSize);
-        writeLog("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
+        write_media_data_to_file("E://buf_mediaplay.ps", m_pFrame, m_frameSize);
+        write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
 
         deal_ps_packet(m_pFrame, m_frameSize);
 
@@ -462,7 +462,7 @@ int CRtpReceiver::handlePsPacket(RTPPacket* packet)
     {
         memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
         m_offset += packet->GetPayloadLength();
-        writeLog("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
+        write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
     }
     return packet->GetPayloadLength();
 }
@@ -477,13 +477,13 @@ int CRtpReceiver::handleH264Packet(RTPPacket* packet)
     return 0;
 }
 
-void CRtpReceiver::writeLog(char* file_name, void* pLog, int nLen)
+void CRtpReceiver::write_media_data_to_file(char* file_name, void* pLog, int nLen)
 {
     if (pLog != NULL && nLen > 0)
     {
         if (NULL == m_pLogFile && strlen(file_name) > 0)
         {
-            ::fopen_s(&m_pLogFile, file_name, "a+");
+            ::fopen_s(&m_pLogFile, file_name, "ab+");
         }
 
         if (m_pLogFile != NULL)
