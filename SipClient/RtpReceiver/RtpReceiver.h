@@ -16,7 +16,7 @@ using namespace jrtplib;
 #define MAX_FRAME_SIZE 100 * 1024 * 1024 
 #define SDP_SIZE 4 * 1024
 
-typedef struct
+typedef struct rtp_header
 {
     //因为字节序不同，所以定义字段的顺序不是按照rfc3550中定义的顺序，这样定义方便存取；
     //because of bit sequence, we define this struct not as order define in rfc3550.
@@ -30,7 +30,7 @@ typedef struct
     unsigned short   seq;       // sequence number
     unsigned long    ts;        // timestamp
     unsigned long    ssrc;      // synchronization source
-}rtp_hdr_t;
+}rtp_header_t;
 
 /**
 *   依据 GB28181 附录C
