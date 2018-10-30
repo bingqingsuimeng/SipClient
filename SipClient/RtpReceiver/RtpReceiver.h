@@ -1,6 +1,8 @@
 #ifndef __RTPRECEIVER_H__
 #define __RTPRECEIVER_H__
 
+#include "video_decoder\Demuxer2.h"
+
 //jrtplib headers 
 #include "rtpsession.h"
 #include "rtppacket.h"
@@ -71,23 +73,6 @@ public:
     int handlePsPacket(RTPPacket* packet);
     int handleMPEG4Packet(RTPPacket* packet);
     int handleH264Packet(RTPPacket* packet);
-    int deal_ps_packet(unsigned char * packet, int length);
-
-    /**
-    *   功能：
-    *       在源16进制字符串source中，查找指定的的16进制字符序列。
-    *
-    *   参数列表：
-    *       source：         源字符序列
-    *       source_length：  源字符序列长度
-    *       seed：           被查找的字符序列
-    *       seed_length：    被查找的字符序列长度
-    *       offset：         如果成功，该值表示被查找的字符序列在源字符序列中的位移。
-    *   返回值：
-    *       0：成功，offset值可用
-    *       -1：失败，offset值为垃圾值，不可用
-    */
-    int find_next_hx_str(unsigned char* source, int source_length, unsigned char* seed, int seed_length, int* offset);
 
     static void ThreadProc(void* pParam);   //线程函数
     int StartProc();
@@ -111,6 +96,8 @@ private:
     bool m_isMarkerPacket;                  //完整帧rtp包头标记
 
     FILE* m_pLogFile;
+
+    CDemuxer2 m_ps_demuxer;
 };
 
 #endif

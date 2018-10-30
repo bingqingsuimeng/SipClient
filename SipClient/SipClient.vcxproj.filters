@@ -40,6 +40,12 @@
     <Filter Include="Header Files\DataRepository">
       <UniqueIdentifier>{a76e4e99-1ffa-4417-90bd-d3ab3da7a133}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\VideoDecoder">
+      <UniqueIdentifier>{05544f46-d948-4e45-8d67-1cabc718763b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VideoDecoder">
+      <UniqueIdentifier>{f72cdb9d-3def-44b9-a392-57ce5cca4dd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -68,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="RtpReceiver\RtpReceiver.cpp">
       <Filter>Source Files\RtpReceiver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\video_decoder\Demuxer2.cpp">
+      <Filter>Source Files\VideoDecoder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="RtpReceiver\PsPacketParser.h">
       <Filter>Header Files\RtpReceiver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\video_decoder\Demuxer2.h">
+      <Filter>Header Files\VideoDecoder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

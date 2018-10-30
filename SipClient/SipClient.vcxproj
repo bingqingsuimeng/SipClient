@@ -221,6 +221,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\video_decoder\Demuxer2.cpp" />
     <ClCompile Include="MediaSession\MediaSession.cpp" />
     <ClCompile Include="RtpReceiver\RtpReceiver.cpp" />
     <ClCompile Include="SipClient.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="..\DataRepository\include\DataRepository.h" />
     <ClInclude Include="..\DataRepository\include\MyFifo.h" />
     <ClInclude Include="..\DataRepository\include\MyNode.h" />
+    <ClInclude Include="..\video_decoder\Demuxer2.h" />
     <ClInclude Include="MediaSession\MediaSession.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RtpReceiver\PsPacketParser.h" />

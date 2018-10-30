@@ -39,7 +39,7 @@ namespace ClientTest
 
         private void MEDIAPLAY_Click(object sender, EventArgs e)
         {
-            this.axSipClient1.doInvite("34020000001320000201");
+            this.axSipClient1.doInvite("34020000001320000202");
         }
 
         private void MEDIASTOP_Click(object sender, EventArgs e)
