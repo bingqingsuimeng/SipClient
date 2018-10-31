@@ -83,9 +83,9 @@ public:
     void write_media_data_to_file(char* file_name, void* pLog, int nLen);
 
 private:
-    RTPUDPv4TransmissionParams m_Transparams;
-    RTPSessionParams m_Sessparams;
+    //from jrtplib
     RTPSession m_RtpSession;
+
     char m_SdpInfo[SDP_SIZE] = { 0 };
     uint16_t m_mediaPort;
     uint8_t m_pFrame[MAX_FRAME_SIZE];       //¥Ê∑≈PS√ΩÃÂ÷°ª∫¥Ê

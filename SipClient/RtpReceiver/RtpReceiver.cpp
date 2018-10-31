@@ -14,7 +14,6 @@ CRtpReceiver::CRtpReceiver(unsigned short rtpPort)
     :m_mediaPort(rtpPort)
 {
     m_offset = 0;
-    m_ps_demuxer.setup_dst_es_video_file("E:\\buf_es.h264");
 }
 
 CRtpReceiver::~CRtpReceiver()
@@ -93,13 +92,17 @@ void CRtpReceiver::ThreadProc(void* pParam)
 {
     CRtpReceiver* pThis = (CRtpReceiver*)pParam;
 
-    (pThis->m_Sessparams).SetOwnTimestampUnit(1.0 / 8000.0);
-    (pThis->m_Sessparams).SetAcceptOwnPackets(true);
-    (pThis->m_Transparams).SetPortbase(pThis->m_mediaPort);
+    RTPUDPv4TransmissionParams Transparams;
+    RTPSessionParams Sessparams;
+
+    Sessparams.SetOwnTimestampUnit(1.0 / 8000.0);
+    Sessparams.SetAcceptOwnPackets(true);
+
+    Transparams.SetPortbase(pThis->m_mediaPort);
 
     int status, i, num;
 
-    status = (pThis->m_RtpSession).Create((pThis->m_Sessparams), &(pThis->m_Transparams));
+    status = (pThis->m_RtpSession).Create(Sessparams, &Transparams);
 
     while (pThis->m_bThreadRuning)
     {
@@ -191,7 +194,7 @@ int CRtpReceiver::handlePsPacket(RTPPacket* packet)
         //write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
 
         //deal_ps_packet(m_pFrame, m_frameSize);
-        m_ps_demuxer.setup_dst_es_video_file("E://buf_mediaplay.es");
+        m_ps_demuxer.setup_dst_es_video_file("E://buf_mediaplay.h264");
         m_ps_demuxer.deal_ps_packet(m_pFrame, m_frameSize);
 
         m_frameSize = 0;
