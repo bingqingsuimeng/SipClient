@@ -129,9 +129,15 @@ char* CVideoDlg::getSdpInfo()
 
 int CVideoDlg::Play()
 {
-    if (m_pDemux)
+    m_pDemux->set_output_es_video_file("E://dialog_mediaplay.h264");
+
+    while (m_bplayThreadRuning)
     {
-        m_pDemux->demux_ps_to_es_network();
+
+        if (m_pDemux)
+        {
+            m_pDemux->demux_ps_to_es_network();
+        }
     }
     return 0;
 }

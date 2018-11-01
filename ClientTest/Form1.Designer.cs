@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.axSipClient1 = new AxSipClientLib.AxSipClient();
             this.CLIENTINIT = new System.Windows.Forms.Button();
             this.CLIENTREGISTER = new System.Windows.Forms.Button();
             this.MEDIAPLAY = new System.Windows.Forms.Button();
@@ -105,7 +104,6 @@
 
         #endregion
 
-        private AxSipClientLib.AxSipClient axSipClient1;
         private System.Windows.Forms.Button CLIENTINIT;
         private System.Windows.Forms.Button CLIENTREGISTER;
         private System.Windows.Forms.Button MEDIAPLAY;
