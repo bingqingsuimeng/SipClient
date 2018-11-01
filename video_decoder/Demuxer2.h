@@ -175,9 +175,9 @@ public:
     bool close_src_ps_file();
 
 private:
-    char src_ps_filename[MAX_FILENAME_LENGTH];
-    char dst_es_video_filename[MAX_FILENAME_LENGTH];
-    char dst_es_audio_filename[MAX_FILENAME_LENGTH];
+    char m_src_ps_filename[MAX_FILENAME_LENGTH];
+    char m_dst_es_video_filename[MAX_FILENAME_LENGTH];
+    char m_dst_es_audio_filename[MAX_FILENAME_LENGTH];
 
     FILE* m_pf_ps_file;
 };

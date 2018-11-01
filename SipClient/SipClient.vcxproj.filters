@@ -87,6 +87,9 @@
     <ClCompile Include="..\StreamManager\StreamManager.cpp">
       <Filter>Source Files\StreamManager</Filter>
     </ClCompile>
+    <ClCompile Include="..\video_decoder\Demuxer.cpp">
+      <Filter>Source Files\VideoDecoder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="..\StreamManager\StreamManager.h">
       <Filter>Header Files\StreamManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\video_decoder\Demuxer.h">
+      <Filter>Header Files\VideoDecoder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,22 @@
 
 // CVideoDlg dialog
 
+int get_network_stream(void *opaque, uint8_t *buf, int buf_size)
+{
+    CStreamManager* p_stream_manager = CStreamManager::get_instance();
+    int length = 0;
+
+    if (p_stream_manager)
+    {
+        length = p_stream_manager->read_data(NULL, buf, buf_size);
+        if (length == buf_size)
+        {
+            return length;
+            printf("success");
+        }
+    }
+}
+
 IMPLEMENT_DYNAMIC(CVideoDlg, CDialogEx)
 
 CVideoDlg::CVideoDlg(CWnd* pParent /*=NULL*/)
@@ -16,6 +32,9 @@ CVideoDlg::CVideoDlg(CWnd* pParent /*=NULL*/)
 {
     m_pMediaSession = NULL;
     m_stream_buffer = (unsigned char*)malloc(STREAM_BUFFER_SIZE);
+    
+    CDemuxer::setup_callback_function(get_network_stream);
+    m_pDemux = new CDemuxer();
 }
 
 CVideoDlg::~CVideoDlg()
@@ -23,6 +42,11 @@ CVideoDlg::~CVideoDlg()
     if (m_stream_buffer)
     {
         free(m_stream_buffer);
+    }
+
+    if (m_pDemux)
+    {
+        delete m_pDemux;
     }
 }
 
@@ -101,29 +125,13 @@ char* CVideoDlg::getSdpInfo()
     }
 }
 
+
+
 int CVideoDlg::Play()
 {
-    CStreamManager* p_stream_manager = CStreamManager::get_instance();
-
-    unsigned char* p_stream_buffer = (unsigned char*)malloc(2 * 1024 * 1024);
-
-    while (m_bplayThreadRuning)
+    if (m_pDemux)
     {
-        memset(p_stream_buffer, 0x00, 2 * 1024 * 1024);
-        int length = p_stream_manager->read_data(NULL, p_stream_buffer, 100 * 1024);
-        if (p_stream_manager)
-        {
-            if (length> 0)
-            {
-                write_media_data_to_file("E://buf_mediaplay_stream_dialog.ps", p_stream_buffer, length);
-            }
-        }
-        Sleep(500);
-        memset(p_stream_buffer, 0x00, 2 * 1024 * 1024);
-    }
-    if (p_stream_buffer)
-    {
-        free(p_stream_buffer);
+        m_pDemux->demux_ps_to_es_network();
     }
     return 0;
 }

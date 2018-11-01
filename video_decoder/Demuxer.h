@@ -36,6 +36,9 @@ extern "C"
 
 #define MAX_FILE_NAME_LENGTH 60
 
+//回调函数，使用ffmpeg解复用网络PS流时，ffmpeg需要通过该函数获取网络流。
+typedef int(*callback_get_network_stream_fp)(void *opaque, uint8_t *buf, int buf_size);
+
 /**
 *   demux ps stream to es stream, using ffmpeg.
 */
@@ -55,10 +58,15 @@ public:
     */
     bool demux_ps_to_es();
 
+    bool demux_ps_to_es_network();
+
+    static void setup_callback_function(callback_get_network_stream_fp func);
+    static callback_get_network_stream_fp callback_get_network_stream;
+
 private:
-    char input_ps_file_name[MAX_FILE_NAME_LENGTH];
-    char output_es_video_file_name[MAX_FILE_NAME_LENGTH];
-    char output_es_audio_file_name[MAX_FILE_NAME_LENGTH];
+    char m_input_ps_file_name[MAX_FILE_NAME_LENGTH];
+    char m_output_es_video_file_name[MAX_FILE_NAME_LENGTH];
+    char m_output_es_audio_file_name[MAX_FILE_NAME_LENGTH];
 };
 
 #endif // !__DEMUXER_H__

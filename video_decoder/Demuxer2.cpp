@@ -135,7 +135,7 @@ int CDemuxer2::deal_ps_packet(unsigned char * packet, int length)
 
                 // +9 的原因是pes_video_h264_packet_stuffed_size之前还有9个字节的头部数据
                 // +6 的原因是pes包的总长度是在头部之后第6个字节处得到的。
-                write_media_data_to_file(dst_es_video_filename,
+                write_media_data_to_file(m_dst_es_video_filename,
                     next_pes_packet + 9 + pes_video_h264_packet_stuffed_size,
                     pes_video_h264_packet_size + 6 - 9 - pes_video_h264_packet_stuffed_size);
 
@@ -299,28 +299,28 @@ int CDemuxer2::do_demux()
 
 void CDemuxer2::setup_src_ps_file(char* filename)
 {
-    memset(src_ps_filename, 0x00, MAX_FILENAME_LENGTH);
+    memset(m_src_ps_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
     {
-        sprintf_s(src_ps_filename, MAX_FILENAME_LENGTH, "%s", filename);
+        sprintf_s(m_src_ps_filename, MAX_FILENAME_LENGTH, "%s", filename);
     }
 }
 
 void CDemuxer2::setup_dst_es_video_file(char* filename)
 {
-    memset(dst_es_video_filename, 0x00, MAX_FILENAME_LENGTH);
+    memset(m_dst_es_video_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
     {
-        sprintf_s(dst_es_video_filename, MAX_FILENAME_LENGTH, "%s", filename);
+        sprintf_s(m_dst_es_video_filename, MAX_FILENAME_LENGTH, "%s", filename);
     }
 }
 
 void CDemuxer2::setup_dst_es_audio_file(char* filename)
 {
-    memset(dst_es_audio_filename, 0x00, MAX_FILENAME_LENGTH);
+    memset(m_dst_es_audio_filename, 0x00, MAX_FILENAME_LENGTH);
     if (strlen(filename) > 0)
     {
-        sprintf_s(dst_es_audio_filename, MAX_FILENAME_LENGTH, "%s", filename);
+        sprintf_s(m_dst_es_audio_filename, MAX_FILENAME_LENGTH, "%s", filename);
     }
 }
 
@@ -328,14 +328,14 @@ bool CDemuxer2::open_src_ps_file()
 {
     //open ps file
     errno_t err;
-    err = ::fopen_s(&m_pf_ps_file, src_ps_filename, "rb");
+    err = ::fopen_s(&m_pf_ps_file, m_src_ps_filename, "rb");
     if (err == 0)
     {
-        printf("The file '%s' was opened\n", src_ps_filename);
+        printf("The file '%s' was opened\n", m_src_ps_filename);
     }
     else
     {
-        printf("The file '%s' was not opened\n", src_ps_filename);
+        printf("The file '%s' was not opened\n", m_src_ps_filename);
     }
     return (0 == err);
 }
@@ -348,11 +348,11 @@ bool CDemuxer2::close_src_ps_file()
         err = fclose(m_pf_ps_file);
         if (err == 0)
         {
-            printf("The file '%s' was closed\n", src_ps_filename);
+            printf("The file '%s' was closed\n", m_src_ps_filename);
         }
         else
         {
-            printf("The file '%s' was not closed\n", src_ps_filename);
+            printf("The file '%s' was not closed\n", m_src_ps_filename);
         }
     }
     return (0 == err);

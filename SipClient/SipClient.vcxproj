@@ -96,7 +96,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);$(SolutionDir)ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,14 +128,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GithubPro\SipClient\ffmpeg\include;$(SolutionDir)jrtplib\include;$(SolutionDir)jthread;$(SolutionDir)SipStack\include;$(SolutionDir)SipStack;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\SipClient.def</ModuleDefinitionFile>
       <OutputFile>$(OutDir)$(ProjectName).ocx</OutputFile>
       <RegisterOutput>true</RegisterOutput>
-      <AdditionalDependencies>SipStackd.lib;mfcs140d.lib;MSVCRTD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SipStackd.lib;mfcs140d.lib;MSVCRTD.lib;jrtplibd.lib;jthreadd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -222,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\StreamManager\StreamManager.cpp" />
+    <ClCompile Include="..\video_decoder\Demuxer.cpp" />
     <ClCompile Include="..\video_decoder\Demuxer2.cpp" />
     <ClCompile Include="MediaSession\MediaSession.cpp" />
     <ClCompile Include="RtpReceiver\RtpReceiver.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="..\DataRepository\include\MyFifo.h" />
     <ClInclude Include="..\DataRepository\include\MyNode.h" />
     <ClInclude Include="..\StreamManager\StreamManager.h" />
+    <ClInclude Include="..\video_decoder\Demuxer.h" />
     <ClInclude Include="..\video_decoder\Demuxer2.h" />
     <ClInclude Include="MediaSession\MediaSession.h" />
     <ClInclude Include="Resource.h" />
