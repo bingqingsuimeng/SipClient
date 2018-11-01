@@ -238,6 +238,10 @@ LONG CSipClientCtrl::doBye()
             m_pSipUA->doBye();
             lRet = 0;
         }
+        if (m_pVideoDlg)
+        {
+            m_pVideoDlg->StopPlay();
+        }
     } while (0);
 
     return lRet;

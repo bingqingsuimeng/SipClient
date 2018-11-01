@@ -1,8 +1,9 @@
 #pragma once
 
 #include "MediaSession\MediaSession.h"
+#include "StreamManager\StreamManager.h"
 
-
+#define STREAM_BUFFER_SIZE (8 * 1024 * 1024)
 
 // CVideoDlg dialog
 
@@ -27,6 +28,7 @@ private:
     unsigned char* m_ScrBuf[4] = { 0 };     //video buffer
 
     CMediaSession* m_pMediaSession;
+    unsigned char* m_stream_buffer;
 
 public:
     static void PlayThreadProc(void* pParam);   //Ïß³Ìº¯Êý
@@ -35,5 +37,6 @@ public:
 
     bool StartPlay();
     bool StopPlay();
+    int Play();
     char* getSdpInfo();
 };

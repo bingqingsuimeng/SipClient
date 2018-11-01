@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_BUFFER_SIZE (100 * 1024 * 1024)
+#define MAX_BUFFER_SIZE (1 * 1024 * 1024)
 
 #define LOG(fmt, ...) fprintf(stdout, "[DEBUG] %s\n%s:%d:" fmt "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
