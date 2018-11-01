@@ -4,16 +4,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_BUFFER_SIZE (8)
+#define MAX_BUFFER_SIZE (100 * 1024 * 1024)
 
 #define LOG(fmt, ...) fprintf(stdout, "[DEBUG] %s\n%s:%d:" fmt "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 class CStreamManager
 {
-public:
+private:
     CStreamManager();
     ~CStreamManager();
 
+public:
+    static CStreamManager* m_instance;
+
+    static CStreamManager* get_instance()
+    {
+        if (NULL != m_instance)
+        {
+            return m_instance;
+        }
+        else
+        {
+            m_instance = new CStreamManager();
+            return m_instance;
+        }
+    }
     /**
     *   description:
     *       read length of data to buffer.

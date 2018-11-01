@@ -2,6 +2,7 @@
 #define __RTPRECEIVER_H__
 
 #include "video_decoder\Demuxer2.h"
+#include "StreamManager\StreamManager.h"
 
 //jrtplib headers 
 #include "rtpsession.h"
@@ -71,6 +72,7 @@ public:
     *       assemle packet data to an full Frame
     */
     int handlePsPacket(RTPPacket* packet);
+    int handlePsPacketAsStream(RTPPacket* packet);
     int handleMPEG4Packet(RTPPacket* packet);
     int handleH264Packet(RTPPacket* packet);
 
@@ -90,6 +92,7 @@ private:
     uint16_t m_mediaPort;
     uint8_t m_pFrame[MAX_FRAME_SIZE];       //存放PS媒体帧缓存
     uint8_t m_pEsFrame[MAX_FRAME_SIZE];       //存放ES媒体帧缓存
+    uint8_t *m_stream_buffer;
     uint8_t* m_pTmpFrame;                   //组装完整的帧堆地址，用于插入仓库。
     int m_offset;                           //位移
     int m_frameSize;                        //完整帧大小

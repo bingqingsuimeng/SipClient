@@ -1,5 +1,7 @@
 #include "StreamManager.h"
 
+CStreamManager* CStreamManager::m_instance = NULL;
+
 CStreamManager::CStreamManager()
 {
     m_capacity = MAX_BUFFER_SIZE;

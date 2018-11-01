@@ -46,6 +46,12 @@
     <Filter Include="Source Files\VideoDecoder">
       <UniqueIdentifier>{f72cdb9d-3def-44b9-a392-57ce5cca4dd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\StreamManager">
+      <UniqueIdentifier>{eeb7ee93-eb71-44ea-bf83-34888de2a732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StreamManager">
+      <UniqueIdentifier>{5bf25672-f7b3-4c78-a697-e9399cf069dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\video_decoder\Demuxer2.cpp">
       <Filter>Source Files\VideoDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StreamManager\StreamManager.cpp">
+      <Filter>Source Files\StreamManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="..\video_decoder\Demuxer2.h">
       <Filter>Header Files\VideoDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\StreamManager\StreamManager.h">
+      <Filter>Header Files\StreamManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

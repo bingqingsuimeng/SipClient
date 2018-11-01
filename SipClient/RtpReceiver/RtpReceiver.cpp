@@ -14,10 +14,15 @@ CRtpReceiver::CRtpReceiver(unsigned short rtpPort)
     :m_mediaPort(rtpPort)
 {
     m_offset = 0;
+    m_stream_buffer = (uint8_t*)malloc(MAX_FRAME_SIZE);
 }
 
 CRtpReceiver::~CRtpReceiver()
 {
+    if (m_stream_buffer)
+    {
+        free(m_stream_buffer);
+    }
 }
 
 char* CRtpReceiver::getFrame()
@@ -148,7 +153,8 @@ int CRtpReceiver::handlePacket(RTPPacket* packet)
     {
     case PS: //96
     {
-        handlePsPacket( packet );
+        //handlePsPacket( packet );
+        handlePsPacketAsStream(packet);
         break;
     }
     case MPEG4: //97
@@ -207,6 +213,58 @@ int CRtpReceiver::handlePsPacket(RTPPacket* packet)
         //write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
     }
     return packet->GetPayloadLength();
+}
+
+int CRtpReceiver::handlePsPacketAsStream(RTPPacket* packet)
+{
+    if (NULL == packet)
+    {
+        return 0;
+    }
+    int pakcet_length = packet->GetPayloadLength();
+
+    //unsigned char* p_buffer = (unsigned char*)malloc(sizeof(unsigned char)*8*1024*1024);
+    memset(m_stream_buffer, 0x00, MAX_FRAME_SIZE);
+
+    CStreamManager* p_stream_manager = CStreamManager::get_instance();
+
+
+    if (p_stream_manager->write_data(packet->GetPayloadData(), pakcet_length) > 0)
+    {
+        p_stream_manager->read_data(NULL, m_stream_buffer, pakcet_length);
+        write_media_data_to_file("E://buf_mediaplay_stream.ps", m_stream_buffer, pakcet_length);
+    }
+
+    memset(m_stream_buffer, 0x00, MAX_FRAME_SIZE);
+
+
+    //if (packet->HasMarker())   //完数据包, asMarker() Returns true is the marker bit was set
+    //{
+    //    //接收到完整的一帧，存入视频帧队列，供解码器解析，并将空间释放，供下一帧数据存放。
+    //    memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
+    //    m_frameSize = m_offset + packet->GetPayloadLength();
+    //    m_pTmpFrame = new uint8_t(m_frameSize);
+
+    //    g_PsPacketRepo.putData(m_pTmpFrame);    //入PS包仓库
+    //                                            //memcpy(m_pTmpFrame, m_pFrame, m_frameSize);
+
+    //    write_media_data_to_file("E://buf_mediaplay.ps", m_pFrame, m_frameSize);
+    //    //write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
+
+    //    //deal_ps_packet(m_pFrame, m_frameSize);
+    //    m_ps_demuxer.setup_dst_es_video_file("E://buf_mediaplay.h264");
+    //    m_ps_demuxer.deal_ps_packet(m_pFrame, m_frameSize);
+
+    //    m_frameSize = 0;
+    //    m_offset = 0;
+    //}
+    //else
+    //{
+    //    memcpy(m_pFrame + m_offset, packet->GetPayloadData(), packet->GetPayloadLength());
+    //    m_offset += packet->GetPayloadLength();
+    //    //write_media_data_to_file("E://src_mediaplay.ps", packet->GetPayloadData(), packet->GetPayloadLength());
+    //}
+    //return packet->GetPayloadLength();
 }
 
 int CRtpReceiver::handleMPEG4Packet(RTPPacket* packet)
